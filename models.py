@@ -1,3 +1,4 @@
+from http import client
 import os
 import torch
 import openai
@@ -40,8 +41,8 @@ class ModelGPT:
             response = self.client.chat.completions.create(
                 model=self.model_name,
                 messages=messages,
-                max_tokens=max_n_tokens,
-                temperature=temperature,
+                #max_tokens=max_n_tokens,
+                #temperature=temperature,
                 seed=0,
             )
             generation = response.choices[0].message.content
@@ -61,11 +62,28 @@ class ModelClaude:
         output = self.client.messages.create(
             model=self.model_name,
             max_tokens=max_n_tokens,  
-            temperature=temperature,
+            #temperature=temperature,
             messages=messages
         )
         return output.content[0].text
 
+
+class ModelTogether:
+    def __init__(self, model_name):
+        from together import Together
+
+        self.model_name = model_name
+        self.client = Together()
+
+    def get_response(self, prompt, max_n_tokens, temperature):
+        messages = [
+            {"role": "user", "content": [{"type": "text", "text": prompt}]}
+        ]
+        response = self.client.chat.completions.create(
+            model=self.model_name,
+            messages=messages
+        )
+        return response.choices[0].message.content
 
 class ModelHuggingFace:
     def __init__(self, model_name):
@@ -81,10 +99,21 @@ class ModelHuggingFace:
             "llama3-8b": "You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe. Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature. If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don’t know the answer to a question, please don’t share false information.",
             "r2d2": "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the human’s questions.",
         }
-        self.device = torch.device("cuda")
+        # Select device conservatively; prefer CUDA if available, else CPU.
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model_name = model_name
-        self.model = AutoModelForCausalLM.from_pretrained(model_dict[model_name], torch_dtype=torch.float16, device_map=self.device,token=os.getenv("HF_TOKEN"), trust_remote_code=True).eval()
-        self.tokenizer = AutoTokenizer.from_pretrained(model_dict[model_name], token=os.getenv("HF_TOKEN"))
+        cache_dir = os.getenv("TRANSFORMERS_CACHE")
+        self.model = AutoModelForCausalLM.from_pretrained(
+            model_dict[model_name],
+            torch_dtype=torch.float16 if self.device.type == "cuda" else None,
+            device_map="auto",
+            token=os.getenv("HF_TOKEN"),
+            trust_remote_code=True,
+            cache_dir=cache_dir,
+        ).eval()
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            model_dict[model_name], token=os.getenv("HF_TOKEN"), cache_dir=cache_dir
+        )
 
     def get_response(self, prompt, max_n_tokens, temperature):
         conv = [{"role": "user", "content": prompt}]
@@ -98,4 +127,3 @@ class ModelHuggingFace:
         response = self.tokenizer.decode(outputs_truncated, skip_special_tokens=True)
 
         return response
-
