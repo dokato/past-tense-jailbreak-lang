@@ -5,8 +5,6 @@ This repository extends the study 'Does Refusal Training in LLMs Generalize to t
 - Original paper: https://arxiv.org/abs/2407.11969 (ICLR 2025)
 - Core question: Do refusal safeguards trained primarily on present-tense harmful requests generalize to the past tense? My project broadens this to multiple languages, including low-resourced ones.
 
-<p align="center"><img src="images/graph1.png" width="400" /></p>
-
 ## What's New in This Project
 - Multilingual evaluation: Adds support for running attacks and evaluations across multiple languages beyond English.
 - Parallelization: Enables concurrent processing of requests for faster experiments via `--n_par`.
@@ -89,7 +87,9 @@ Outputs are written to `jailbreak_artifacts/<timestamp>-model=<model>-lang=<lang
 
 ## Results
 
-TODO
+Experiment 1: 50 requests, 5 retries.
+
+<p align="center"><img src="images/graph1.png" width="400" /></p>
 
 ## License
 This codebase is released under the MIT License. See `LICENSE`.
