@@ -21,6 +21,7 @@ We provide evaluation data and processing for the following languages (including
 - Arabic
 - Japanese
 - Welsh
+- Chinese
 
 Translated CSV artifacts are included at the repository root:
 
@@ -31,9 +32,10 @@ Translated CSV artifacts are included at the repository root:
 - `harmful_behaviors_jailbreakbench_with_goal_arabic.csv`
 - `harmful_behaviors_jailbreakbench_with_goal_japanese.csv`
 - `harmful_behaviors_jailbreakbench_with_goal_welsh.csv`
+- `harmful_behaviors_jailbreakbench_with_goal_chinese.csv`
 
 ## Codebase Changes at a Glance
-- Added language selection (`--lang`) with supported choices: `italian`, `polish`, `german`, `arabic`, `japanese`, `welsh` (English is the default when `--lang` is omitted).
+- Added language selection (`--lang`) with supported choices: `italian`, `polish`, `german`, `arabic`, `japanese`, `welsh`, `chinese` (English is the default when `--lang` is omitted).
 - Introduced parallel execution (`--n_par`) with a thread pool to speed up evaluation over many requests.
 - Expanded model adapters to support both API-based and open-weights backends.
 - Produces per-run JSON artifacts under `jailbreak_artifacts/` with inputs, reformulations, model outputs, and judge decisions.
