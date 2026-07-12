@@ -89,7 +89,7 @@ Outputs are written to `jailbreak_artifacts/<timestamp>-model=<model>-lang=<lang
 
 ## Results
 
-Experiment 1: 50 requests, 5 retries.
+Experiment 1: 50 requests, 5 attack retries.
 
 <p align="center"><img src="images/asr_gpt.png" width="600" /></p>
 
