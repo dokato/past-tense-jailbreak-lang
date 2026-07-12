@@ -87,9 +87,13 @@ Outputs are written to `jailbreak_artifacts/<timestamp>-model=<model>-lang=<lang
 
 ## Results
 
-Experiment 1: 50 requests, 5 retries.
+Experiment 1: 50 requests, 3 retries.
 
-<p align="center"><img src="images/graph1.png" width="400" /></p>
+<p align="center"><img src="images/asr_gpt.png" width="400" /></p>
+
+<p align="center"><img src="images/asr_llama.png" width="400" /></p>
+
+<p align="center"><img src="images/asr_heatmap.png" width="400" /></p>
 
 ## License
 This codebase is released under the MIT License. See `LICENSE`.
