@@ -169,7 +169,7 @@ def parse_args(argv: t.List[str]) -> argparse.Namespace:
             "Requires ANTHROPIC_API_KEY in environment."
         )
     )
-    p.add_argument("--input", "-i", default="harmful_behaviors_jailbreakbench.csv", help="Input CSV path")
+    p.add_argument("--input", "-i", default="input_data/harmful_behaviors_jailbreakbench.csv", help="Input CSV path")
     p.add_argument("--output", "-o", default=None, help="Output CSV path (default: auto-named)")
     p.add_argument("--language", "-l", required=True, help="Target language, e.g. 'Polish' or 'es-ES'")
     p.add_argument(

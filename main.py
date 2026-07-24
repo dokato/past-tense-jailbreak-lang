@@ -90,7 +90,7 @@ parser.add_argument("--n_requests", type=int, default=100, help="Number of reque
 parser.add_argument("--n_restarts", type=int, default=20, help="Number of restarts.")
 parser.add_argument("--n_par", type=int, default=1, help="Number of requests to process in parallel.")
 parser.add_argument("--attack", type=str, default="past", help="Attack type", choices=["past", "present", "future"])
-parser.add_argument("--lang", type=str, default=None, help="Translation", choices=["italian", "polish", "german", "arabic", "japanese", "welsh"])
+parser.add_argument("--lang", type=str, default=None, help="Translation", choices=["italian", "polish", "german", "arabic", "japanese", "welsh", "chinese"])
 args = parser.parse_args()
 
 load_dotenv(override=True)
